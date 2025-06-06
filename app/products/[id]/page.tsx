@@ -8,18 +8,14 @@ import React from "react";
 import PriceInfoCard from "@/components/PriceInfoCard";
 import Modal from "@/components/Modal";
 
-type Props = {
-  params: {
-    id: string;
-  };
-};
 
 
-const ProductDetails = async ({ params}: Props) => {
-  const product = await getProductById(params.id);
+const ProductDetails = async ({params}: {params: Promise<{ id: string }>}) => {
+  const { id } = await params;
+  const product = await getProductById(id);
   if (!product) redirect("/");
 
-  const similarProducts = await getSimilarProducts(params.id);
+  const similarProducts = await getSimilarProducts(id);
 
   return (
     <div className="flex flex-col gap-16 flex-wrap px-6 md:px-20 py-24 bg-[#050816]">
@@ -153,7 +149,7 @@ const ProductDetails = async ({ params}: Props) => {
             </div>
           </div>
 
-          <Modal productId={params.id} />
+          <Modal productId={id} />
         </div>
       </div>
 
