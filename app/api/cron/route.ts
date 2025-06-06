@@ -24,7 +24,7 @@ export async function GET(){
                 if(!scrappedProduct) throw new Error("No product found");
 
                 const updatedPriceHistory = [
-                    ...currentProduct.updatedPriceHistory,
+                    ...currentProduct.priceHistory,
                     {price:scrappedProduct.currentPrice}
                 ]
                 const product = {
